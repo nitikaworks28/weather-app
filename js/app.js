@@ -11,7 +11,28 @@ const feesLike = document.querySelector("#feels");
 const historyBox = document.querySelector("#history");
 const forecastBox = document.querySelector("#forecast");
 const rainChances = document.querySelector("#rain");
+const clearInput = document.querySelector("#clearInput");
+const clearHistBtn = document.querySelector("#clearHistory");
 
+citySearch.addEventListener("input", () => {
+    if(citySearch.value.trim()!==""){
+        clearInput.style.display = "inline";
+    }else{
+        clearInput.style.display = "none";
+    }
+});
+
+clearHistBtn.addEventListener("click",()=>{
+    localStorage.removeItem("history");
+    searchHistory = [];
+    renderHistory();
+})
+
+clearInput.addEventListener("click", ()=> {
+    citySearch.value = "";
+    clearInput.style.display = "none";
+    citySearch.focus();
+});
 let searchHistory = JSON.parse(localStorage.getItem("history")) || [];
 
 function displayForecast(weatherData){
